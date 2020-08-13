@@ -23,6 +23,6 @@ class User < ApplicationRecord
     now = Time.zone.now
     errors[:base] << '公開中の未終了イベントが存在します' if created_events.where(':now < end_at', now: now).exists?
     errors[:base] << '未終了の参加イベントが存在します' if participating_events.where(':now < end_at', now: now).exists?
-    throw(:about) unless errors.empty?
+    throw(:abort) unless errors.empty?
   end
 end
